@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>BINGO!</title>
+		<link rel="stylesheet" type="text/css" href="styles.css" media="screen"/>
+        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+        <script src="EaselJS-0.8.2"></script>
+		<script src="SoundJS-0.6.2"></script>
+		<script src="jquery.3.1.1.js"></script>
+		<script type="text/javascript" src="bingo-script.js"></script>
+		<script type="text/javascript" src="sound.js"></script>
+		<script type="text/javascript" src="init-matrix.js"></script>
+		<script type="text/javascript" src="modal.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	</head>
+
+	<body onload="displayTime(); setInterval('displayTime()',1000); populateColourStyleArray(); init();">
+
+        <p id="date"></p>
+
+		<div id="banner-replace"></div>
+
+		<!-- SCROLLING BANNER -->
+		<canvas id="banner" width="1900" height="50">
+			Your browser DOES NOT support HTML5 canvas
+		</canvas>
+
+		<!--<p id="rolledNos">Rolled Numbers: </p>-->
+        <p id="arrayOutput">Rolled ball numbers will appear here.</p>
+
+		<!-- BALLS ROLLED -->
+		<div id="balls-rolled-div">
+			<p class="info-text"><span>Balls Rolled:</span> </p>
+			<p class="info-text" id="ballsRolled"></p>
+			<p class="info-text">&#40;</p><p class="info-text" id="ballsLeft"></p><p class="info-text"> left&#41;</p>
+		</div>
+
+		<!-- NICKNAME -->
+		<div id="nickname-div">
+			<p class="info-text"><span>Nickname:</span> </p>
+			<p class="info-text" id="nickname"></p>
+		</div>
+
+		<!-- BUTTONS -->
+		<div id="button-div">
+			<form class="form" name="data" id="data">
+				<button id="start" class="button generate" onclick="genRand();return false;" title="Starts the game and rolls the first ball."></button>
+				<input id="reset" type="submit" class="button reset" onclick="clearCanvas();" value="Reset Board" title="Resets the game.">
+				<button title="Rolls a ball every 5 seconds automatically." class ="button generate" onclick="autoPlay();return false;">Auto Game</button>
+			</form>
+		</div>
+
+		<!--BINGO BALL MATRIX CANVAS-->
+		<canvas id="myCanvas" width="1000" height="900">
+		  Your browser DOES NOT support HTML5 Canvas
+		</canvas>
+
+		<!--CURRENT BALL CANVAS-->
+		<canvas id="myCanvas2" width="520" height="520">
+			Your browser DOES NOT support HTML5 canvas
+		</canvas>
+
+		<!--BINGO CARD CANVAS-->
+		<canvas id="number-card" width="500" height="350">
+			Your browser DOES NOT support HTML5 canvas
+		</canvas>
+
+		<!-- Modal -->
+		<div id="popup" class="modal">
+			<div class="modal-content">
+
+		    	<div class="modal-header">
+			    	<button onclick="crossFunction();" class="close">×</button>
+			    	<h2 class="modal-header-text">Welcome to Bingo!</h2>
+					<h3 id="ball_selection" class="modal-header-text">Please pick 9 numbers below for your bingo card.</h3>
+			    </div>
+
+			    <div class="modal-body">
+					<canvas id="modal_canvas" width="1000" height="900">
+					  Your browser DOES NOT support HTML5 Canvas
+					</canvas>
+			    </div>
+
+			    <div class="modal-footer">
+			    	<h4 class="modal-footer-text">Just want to use the generator? Click the 'x' in the top-right corner.</h4>
+					<button onClick="modalContinue();" class="modal-continue" title="Continues to the game page after you've selected 9 numbers.">Continue</button>
+					<button onClick="generateRandomCard();" class="modal-continue" title="Generates 9 random numbers for your bingo card.">Random Numbers</button>
+				</div>
+
+			</div>
+		</div>
+
+	<script>
+		modal_canvas.addEventListener("mousedown", measureCursor, false);
+		var cross = document.getElementsByClassName('span')[2];
+	    var modal = document.getElementById('popup');
+		loadModalMatrix(); //load the matrix initially
+	</script>
+
+	</body>
+
+</html>
